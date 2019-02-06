@@ -19,6 +19,7 @@
 #define TOKEN_BUFFSIZE 64	//max number of tokens taken from input
 #define TOKEN_DELIM " \t\r\n\a" //delimiting characters for tokenizing
 #define LINE_BUFFSIZE 100 //max number of lines taken from rc file
+
 #define UNUSED(expr) do { (void)(expr); } while (0) //for silencing unused error
 
 //FUNCTION DECLARATIONS---------------------------------------------------------
@@ -137,6 +138,7 @@ void kapish_loop(void){
   int status=0;
 
   do{
+		//print prompt with date and time (get time function in utilfunctions.c)
     printf("kapish - %s ? ", get_time_str());
     line = kapish_read_line();
 		//if input length was exceeded or command was "kapishignore", continue
@@ -296,20 +298,9 @@ void kapishrc_init(void){
   int ch, status;
 	int pathsize = 100;
 	char *rcpath = malloc(sizeof(char) * pathsize);
-	char *rcstr = "/.kapishrc";
-	//set rcpath to default or construct from HOME env variable
-	char *defaultrc = "/home/lance/.kapishrc";
 
-	if(getenv("HOME") != NULL){
-		while(strlen(getenv("HOME")) >= pathsize){
-			pathsize += pathsize;
-			rcpath = realloc(rcpath, sizeof(char) * pathsize);
-		}
-		strncpy(rcpath, getenv("HOME"), strlen(getenv("HOME")));
-		strncat(rcpath, rcstr, strlen(rcstr));
-	}else{
-		strncpy(rcpath, defaultrc, strlen(defaultrc));
-	}
+	//set rcpath (from HOME env variable if available) - function in utilfunctions.c
+	rcpath = set_rcpath(&rcpath);
 	printf("%s\n", rcpath);
 
 	//open .kapishrc file
