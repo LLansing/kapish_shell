@@ -12,6 +12,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <signal.h>
+//auxillary file containing extra functions
+#include "utilfunctions.h"
 
 #define MAX_INPUT_LENGTH 512	//max length of command input
 #define TOKEN_BUFFSIZE 64	//max number of tokens taken from input
@@ -135,7 +137,7 @@ void kapish_loop(void){
   int status=0;
 
   do{
-    printf("? ");
+    printf("kapish - %s ? ", get_time_str());
     line = kapish_read_line();
 		//if input length was exceeded or command was "kapishignore", continue
 		if(!strncmp(line, ignore_cmd, strlen(ignore_cmd))){
@@ -273,7 +275,7 @@ int kapish_launch(char **args){
 	}else{
 		//parent process - fork has returned the pid of the child process
 		/*wait for the child process to return or be stopped. A 0 will be put in
-			status from the termination of the child process and the loop will exit*/
+			status from the termination of the childlocklock process and the loop will exit*/
 		do {
 			signal(SIGINT, INThandler);
 			wpid = waitpid(pid, &status, WUNTRACED);
