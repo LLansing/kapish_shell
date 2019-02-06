@@ -24,23 +24,24 @@ char *get_time_str(void){
 
 /*Returns rcpath set to $(HOME)/.kapishrc where $(HOME) is the HOME env variable
 	If HOME is not found*/
-char *set_rcpath(char** rcpath){
+char *set_rcpath(void){
 	int pathsize = MAX_RCPATH_LENGTH;
+	char *rcpath = malloc(sizeof(char) * pathsize);
 	char *rc_string = "/.kapishrc";
 
-	strncpy(*rcpath, rc_string + 1, strlen(rc_string) - 2);
-	printf("rc_path default: %s\n", rc_string);
-
 	if(getenv("HOME") != NULL){
+		//reallocate space for rcpath if needed
 		while(strlen(getenv("HOME")) >= pathsize - strlen(rc_string)){
 			pathsize += MAX_RCPATH_LENGTH;
-			rcpath = realloc(*rcpath, sizeof(char) * pathsize);
+			rcpath = realloc(rcpath, sizeof(char) * pathsize);
 		}
-		strncpy(*rcpath, getenv("HOME"), strlen(getenv("HOME")));
-		strncat(*rcpath, rc_string, strlen(rc_string));
-		printf("rc_path HOME: %s\n", rc_string);
+			//get HOME variable into rcpath and concatenate rc_string
+		strncpy(rcpath, getenv("HOME"), strlen(getenv("HOME")));
+		strncat(rcpath, rc_string, strlen(rc_string));
+
 	}else{
-		strncpy(*rcpath, rc_string + 1, strlen(rc_string) - 2);
+		//if HOME not found, set rcpath to ".kapishrc"
+		strncpy(rcpath, rc_string + 1, strlen(rc_string) - 1);
 	}
-	return *rcpath;
+	return rcpath;
 }

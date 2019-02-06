@@ -5,6 +5,6 @@
 //Prototypes for functions
 //returns string of date and time
 char *get_time_str(void);
-char *set_rcpath(char** rcpath);
+char *set_rcpath(void);
 
 #endif

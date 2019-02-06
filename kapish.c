@@ -19,6 +19,7 @@
 #define TOKEN_BUFFSIZE 64	//max number of tokens taken from input
 #define TOKEN_DELIM " \t\r\n\a" //delimiting characters for tokenizing
 #define LINE_BUFFSIZE 100 //max number of lines taken from rc file
+#define MAX_RCPATH_LENGTH 100 //max number of chars taken for rcpath
 
 #define UNUSED(expr) do { (void)(expr); } while (0) //for silencing unused error
 
@@ -296,18 +297,17 @@ void kapishrc_init(void){
 	char **args;
   int position = 0, linenum = 0;
   int ch, status;
-	int pathsize = 100;
-	char *rcpath = malloc(sizeof(char) * pathsize);
 
 	//set rcpath (from HOME env variable if available) - function in utilfunctions.c
-	rcpath = set_rcpath(&rcpath);
-	printf("%s\n", rcpath);
+	char *rcpath = set_rcpath();
 
 	//open .kapishrc file
 	fp = fopen(rcpath, "r");
 	if(fp == NULL){
 		perror("error while opening .kapishrc\n");
 		return;
+	}else{
+		printf(".kapishrc found at %s\n", rcpath);
 	}
 
   //error-handler for allocation failure
@@ -347,7 +347,7 @@ void kapishrc_init(void){
 		 if(position >= MAX_INPUT_LENGTH){
 			 printf("kapish: input has exceeded maximum length and will be ignored\n");
 			 buffer[position] = '\0';
-			 printf("%s\n", buffer);
+			 printf(".kapishrc - %s\n", buffer);
 			 lines[linenum++] = ignore_cmd; //add ignore_cmd to lines array
 			 position = 0;
 				 //increase lines array size if needed
@@ -368,7 +368,7 @@ void kapishrc_init(void){
 
 	 //loop for tokenizing all the lines and executing them
 	 for(int i = 0; i < linenum; i++){
-		 printf("%s\n", lines[i]);
+		 printf(".kapishrc - %s\n", lines[i]);
 		 args = kapish_tokenize(lines[i]);
 		 status = kapish_execute(args);
 		 if(args != NULL){ free(args); }
