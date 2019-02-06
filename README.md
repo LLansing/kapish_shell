@@ -1,5 +1,5 @@
 --== Kapish Shell - Assignment 1 - CSC360 ==--
---== Lance Lansing - V00819401 - Jan 2019 ==--
+--== Lance Lansing - Vxxxxxxxx - Jan 2019 ==--
 
 SOURCES:
   - 'Tutorial - Write a Shell in C', Stephen Brennan, January 16th, 2015
@@ -20,15 +20,4 @@ KNOWN BUGS:
 			CTRL-C
 
 COLLABORATORS:
-		- Discussed project with the following CSC360 students:
-				Cole Lance Lansing
-				Aiden Bull
-				Trevor Rutherford
-				Mark Guebert
-				Christian Knowles
-				Scott Andreen
-				Craig Mathieson
-				Corbin Graham
-				Andrew Craylic
-				Richard Cruikshank
-				Carter Heckman
+		- Discussed project with some CSC360 students
