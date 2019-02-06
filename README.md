@@ -1,9 +1,9 @@
---== Kapish Shell - Assignment 1 - CSC360 ==--
---== Lance Lansing - Vxxxxxxxx - Jan 2019 ==--
+#--== Kapish Shell - Assignment 1 - CSC360 ==--
+##--== Lance Lansing       -       Jan 2019 ==--
 
 DESCRIPTION:
 
-		- Command line shell called kapish with the following functions implemented
+Command line shell called kapish with the following functions implemented
 
 				- Reads .kapishrc file from home directory (if HOME env variable is available) and executes commands within. Then, if no exit command was given, the interactive kapish command line is opened
 
@@ -15,7 +15,7 @@ DESCRIPTION:
 
 					- setenv - sets a given environment variable to a given value creating it if
 					 it does not exist
-					 
+
 					- unsetenv - deletes given environment variable
 
 				- reads in commands and executes them using PATH environment variable
