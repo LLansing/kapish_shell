@@ -1,5 +1,5 @@
-#--== Kapish Shell - Assignment 1 - CSC360 ==--
-##--== Lance Lansing       -       Jan 2019 ==--
+# --== Kapish Shell - Assignment 1 - CSC360 ==--
+## --== Lance Lansing       -       Jan 2019 ==--
 
 DESCRIPTION:
 
