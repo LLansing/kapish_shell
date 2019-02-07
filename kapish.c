@@ -23,6 +23,9 @@
 
 #define UNUSED(expr) do { (void)(expr); } while (0) //for silencing unused error
 
+//text colors
+#define KGRN  "\x1B[32m"
+#define KNRM  "\x1B[0m"
 //FUNCTION DECLARATIONS---------------------------------------------------------
 
 int kapish_cd(char **args);
@@ -140,7 +143,7 @@ void kapish_loop(void){
 
   do{
 		//print prompt with date and time (get time function in utilfunctions.c)
-    printf("kapish - %s ? ", get_time_str());
+    printf("%skapish - %s%s ? ", KGRN, get_time_str(), KNRM);
     line = kapish_read_line();
 		//if input length was exceeded or command was "kapishignore", continue
 		if(!strncmp(line, ignore_cmd, strlen(ignore_cmd))){
@@ -266,7 +269,7 @@ int kapish_launch(char **args){
 	pid = fork();
 	if(pid == 0){
 		//child process - fork has returned 0 to pid
-		//if execvp returns, something has gone wrong, otherwise the given command
+		//if execvp returns, something has go#define KNRM  "\x1B[0m"ne wrong, otherwise the given command
 		//will execute
 		if (execvp(args[0], args) == -1){
 			perror("kapish");
@@ -347,7 +350,7 @@ void kapishrc_init(void){
 		 if(position >= MAX_INPUT_LENGTH){
 			 printf("kapish: input has exceeded maximum length and will be ignored\n");
 			 buffer[position] = '\0';
-			 printf(".kapishrc - %s\n", buffer);
+			 printf("%s.kapishrc -%s %s\n", KGRN, KNRM, buffer);
 			 lines[linenum++] = ignore_cmd; //add ignore_cmd to lines array
 			 position = 0;
 				 //increase lines array size if needed
@@ -368,7 +371,7 @@ void kapishrc_init(void){
 
 	 //loop for tokenizing all the lines and executing them
 	 for(int i = 0; i < linenum; i++){
-		 printf(".kapishrc - %s\n", lines[i]);
+		 printf("%s.kapishrc -%s %s\n", KGRN, KNRM, lines[i]);
 		 args = kapish_tokenize(lines[i]);
 		 status = kapish_execute(args);
 		 if(args != NULL){ free(args); }
